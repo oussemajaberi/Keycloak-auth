@@ -5,14 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeycloakAngularModule, KeycloakService } from 'keycloak-angular';
 import { NavbarComponent } from './includes/navbar/navbar.component';
+import { SidenavComponent } from './sidenav/sidenav.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatIconModule } from '@angular/material/icon';
+import { HomeComponent } from './home/home.component';
+import { HttpClientModule } from '@angular/common/http';
+import { ProjectComponent } from './project/project.component';
 export function Kcfactory(kcService: KeycloakService) {
   return () =>
    kcService.init({
 
       config: {
-        url: 'http://localhost:8180/auth/',
-        realm: 'Auth-user',
-        clientId:'client-ang',
+        url: 'http://localhost:8081/auth/',
+        realm: 'ppl',
+        clientId:'ppl',
 
 
       },
@@ -26,12 +32,18 @@ export function Kcfactory(kcService: KeycloakService) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavbarComponent
+    NavbarComponent,
+    SidenavComponent,
+    HomeComponent,
+    ProjectComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    KeycloakAngularModule
+    KeycloakAngularModule,
+    BrowserAnimationsModule,
+    MatIconModule,
+    HttpClientModule
   ],
   providers: [
     {provide : APP_INITIALIZER, deps : [KeycloakService],useFactory : Kcfactory, multi : true},
